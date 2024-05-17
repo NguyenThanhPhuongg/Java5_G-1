@@ -1,7 +1,6 @@
 package org.example.demobuoi1.entity;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +11,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class KhachHang {
+public class NhanVien {
     private Integer id;
     @NotBlank(message = "ten khong duoc de trong")
     private String ten;
-    @NotBlank(message = "sdt khong duoc de trong")
-    @Size(min = 8 , max = 10 , message = "sdt khong duoc nho hon 8 va lon hon 10 ki tu")
-    private String sdt;
-    @NotBlank(message = "ma khach hang khong duoc de trong")
-    private String maKH;
+    @NotBlank(message = "ma khong duoc de trong")
+    private String maNV;
+    @NotBlank(message = "ten dang nhap khong duoc de trong")
+    private String tenDangNhap;
+    @NotBlank(message = "mat khau khong duoc de trong")
+    @Size(min = 5 , max = 8 , message = "mat khau phai lon hon 5 va nho hon 8 ki tu")
+    private String matKhau;
     private int trangThai;
 }

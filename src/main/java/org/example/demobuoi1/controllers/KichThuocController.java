@@ -1,16 +1,19 @@
 package org.example.demobuoi1.controllers;
 
+import jakarta.validation.Valid;
 import org.example.demobuoi1.entity.KichThuoc;
 import org.example.demobuoi1.repositories.asm1.KichThuocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("kich-thuoc")
@@ -24,11 +27,20 @@ public class KichThuocController {
         return "kich_thuoc/index";
     }
     @GetMapping("create")
-    public String create(){
+    public String create(@ModelAttribute("data") KichThuoc kichThuoc){
         return "kich_thuoc/create";
     }
     @PostMapping("store")
-    public String store(KichThuoc kichThuoc){
+    public String store(Model model, @Valid KichThuoc kichThuoc, BindingResult validate){
+        if(validate.hasErrors()){
+            Map<String,String> errors = new HashMap<>();
+            for(FieldError e : validate.getFieldErrors()) {
+                errors.put(e.getField(), e.getDefaultMessage());
+            }
+            model.addAttribute("data", kichThuoc);
+            model.addAttribute("errors", errors);
+            return "kich_thuoc/create";
+        }
         this.ktRepo.add(kichThuoc);
         return "redirect:/kich-thuoc/index";
     }
@@ -38,13 +50,22 @@ public class KichThuocController {
         return "redirect:/kich-thuoc/index";
     }
     @GetMapping("edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model){
+    public String edit(@PathVariable("id") Integer id, Model model, @ModelAttribute("data") KichThuoc kichThuoc) {
         KichThuoc kt = this.ktRepo.findById(id);
         model.addAttribute("data", kt);
         return "kich_thuoc/edit";
     }
     @PostMapping("update/{id}")
-    public String update(KichThuoc kichThuoc){
+    public String update(Model model, @Valid KichThuoc kichThuoc, BindingResult validate){
+        if(validate.hasErrors()){
+            Map<String,String> errors = new HashMap<>();
+            for(FieldError e : validate.getFieldErrors()) {
+                errors.put(e.getField(), e.getDefaultMessage());
+            }
+            model.addAttribute("data", kichThuoc);
+            model.addAttribute("errors", errors);
+            return "kich_thuoc/edit";
+        }
         ktRepo.update(kichThuoc);
         return "redirect:/kich-thuoc/index";
     }

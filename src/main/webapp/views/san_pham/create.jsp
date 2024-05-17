@@ -12,17 +12,24 @@
 <form action="/san-pham/store" method="post">
     <div class="mb-3">
         <label class="form-label">Ma</label>
-        <input type="text" class="form-control" name="ma">
+        <input type="text" class="form-control" name="ma" value="${data.ma}">
+        <c:if test="${not empty errors['ma']}">
+            <small style="color: red">${errors['ma']}</small>
+        </c:if>
+
     </div>
     <div class="mb-3">
         <label class="form-label">Ten</label>
-        <input class="form-control" type="text" name="ten">
+        <input class="form-control" type="text" name="ten" value="${data.ten}">
+        <c:if test="${not empty errors['ten']}">
+            <small style="color: red">${errors['ten']}</small>
+        </c:if>
     </div>
     <div class="mb-3">
         <label>Trang thai</label>
         <select class="form-select" name="trangThai">
-            <option value="1">Đang hoạt động</option>
-            <option value="0">Ngừng hoạt động</option>
+            <option value="1" ${data.trangThai == 1 ? "selected":""}>Đang hoạt động</option>
+            <option value="0" ${data.trangThai == 0 ? "selected":""}>Ngừng hoạt động</option>
         </select>
     </div>
     <div class="mb-3">

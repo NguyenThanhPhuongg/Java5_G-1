@@ -10,55 +10,22 @@
         crossorigin="anonymous"></script>
 <head></head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./hello.jsp">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="/khach-hang/index">Quản lý khách hàng</a></li>
-                        <li><a class="dropdown-item" href="/mau-sac/index">Quản lý màu sắc</a></li>
-                        <li><a class="dropdown-item" href="/san-pham/index">Quản lý sản phẩm</a></li>
-                        <li><a class="dropdown-item" href="/kich-thuoc/index">Quản lý kích thước</a></li>
-                        <li><a class="dropdown-item" href="#">San Pham Chi Tiet</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
+<jsp:include page="../../views/hello.jsp"></jsp:include>
 <h1 class="text-center">Quản Lý Sản Phẩm Chi Tiết</h1>
 <div class="container">
-    <a href="/san-pham/create">
+    <a href="/san-pham-chi-tiet/create">
         <button class="btn btn-success">Them</button>
     </a>
     <form action="/san-pham-chi-tiet/index" method="get">
-        <div class="col-md-3 mt-5">
+        <div class="col-md-3 mt-5 d-flex justify-content-end">
             <select name="idSP" class="form-select">
                 <c:forEach var="spct" items="${listSanPham}">
-                    <option value="${spct.id}">${spct.ten}</option>
+                    <option value="${spct.id}" ${idSP != null && idSP == spct.id ? 'selected' : ''}>
+                            ${spct.ten}
+                    </option>
                 </c:forEach>
             </select>
-            <button type="submit" class="btn btn-primary">Tim kiem</button>
+            <button   type="submit" class="btn btn-primary mx-2 d-flex align-items-center"><span>Search</span></button>
         </div>
     </form>
 
@@ -66,6 +33,7 @@
         <tr>
             <th>ID</th>
             <th>Ma SPCT</th>
+            <th>San Pham</th>
             <th>Kich Thuoc</th>
             <th>Mau Sac</th>
             <th>So Luong</th>
@@ -78,16 +46,17 @@
             <tr>
                 <td>${item.id}</td>
                 <td>${item.maSPCT}</td>
-                <td>${item.idKT}</td>
-                <td>${item.idMS}</td>
+                <td>${productNames[item.idSP]}</td>
+                <td>${sizeNames[item.idKT]}</td>
+                <td>${colorNames[item.idMS]}</td>
                 <td>${item.soLuong}</td>
                 <td>${item.donGia}</td>
                 <td>${item.trangThai == 1 ? "Đang hoạt động" : "Ngừng hoạt động"}</td>
                 <td>
-                    <a href="/san-pham/delete/${ sanPham.id }">
+                    <a href="/san-pham-chi-tiet/delete/${ item.id }">
                         <button class="btn btn-danger">Xoa</button>
                     </a>
-                    <a href="/san-pham/edit/${ sanPham.id }">
+                    <a href="/san-pham-chi-tiet/edit/${ item.id }">
                         <button class="btn btn-warning">Sua</button>
                     </a>
                 </td>

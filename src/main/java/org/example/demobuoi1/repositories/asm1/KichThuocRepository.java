@@ -14,6 +14,7 @@ public class KichThuocRepository {
         list.add(new KichThuoc(1, "KT001","M",0));
         list.add(new KichThuoc(2, "KT002","S",1));
         list.add(new KichThuoc(3, "KT003","XS",1));
+        list.add(new KichThuoc(4, "KT004","S",1));
     }
     public List<KichThuoc> findAll() {
         return list;

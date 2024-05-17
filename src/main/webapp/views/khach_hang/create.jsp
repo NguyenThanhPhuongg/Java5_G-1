@@ -12,21 +12,30 @@
     <form action="/khach-hang/store" method="post">
         <div class="mb-3">
             <label class="form-label">Ten</label>
-            <input class="form-control" type="text" name="ten">
+            <input class="form-control" type="text" name="ten" value="${data.ten}">
+            <c:if test="${not empty errors['ten']}">
+                <small style="color: red">${errors['ten']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">SDT</label>
-            <input type="text" class="form-control" name="sdt">
+            <input type="text" class="form-control" name="sdt" value="${data.sdt}">
+            <c:if test="${not empty errors['sdt']}">
+                <small style="color: red">${errors['sdt']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">Ma KH</label>
-            <input type="text" class="form-control" name="maKH">
+            <input type="text" class="form-control" name="maKH" value="${data.maKH}">
+            <c:if test="${not empty errors['maKH']}">
+                <small style="color: red">${errors['maKH']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label>Trang thai</label>
             <select class="form-select" name="trangThai">
-                <option value="1">Đang hoạt động</option>
-                <option value="0">Ngừng hoạt động</option>
+                <option value="1" ${data.trangThai == 1 ? "selected":""}>Đang hoạt động</option>
+                <option value="0" ${data.trangThai == 0 ? "selected":""}>Ngừng hoạt động</option>
             </select>
         </div>
         <div class="mb-3">

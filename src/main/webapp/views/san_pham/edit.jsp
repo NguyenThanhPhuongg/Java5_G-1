@@ -13,10 +13,16 @@
     <div class="mb-3">
         <label class="form-label">Ma</label>
         <input type="text" class="form-control" name="ma" value="${data.ma}">
+        <c:if test="${not empty errors['ma']}">
+            <small style="color: red">${errors['ma']}</small>
+        </c:if>
     </div>
     <div class="mb-3">
         <label class="form-label">Ten</label>
         <input class="form-control" type="text" name="ten"value="${data.ten}" >
+        <c:if test="${not empty errors['ten']}">
+            <small style="color: red">${errors['ten']}</small>
+        </c:if>
     </div>
     <div class="mb-3">
         <label>Trang thai</label>
