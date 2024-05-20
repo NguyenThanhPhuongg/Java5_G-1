@@ -2,6 +2,9 @@ package org.example.demobuoi1.repositories.asm1;
 
 import org.example.demobuoi1.entity.SanPham;
 import org.example.demobuoi1.entity.SanPhamChiTiet;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -20,7 +23,14 @@ public class SanPhamChiTietRepository {
     public List<SanPhamChiTiet> findAll() {
         return list;
     }
-
+    public Page<SanPhamChiTiet> findAllPage(Pageable pageable){
+        int pageSize = pageable.getPageSize();
+        int pageNumber = pageable.getPageNumber();
+        int startIndex = pageNumber * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, list.size());
+        List<SanPhamChiTiet> pageContent = list.subList(startIndex, endIndex);
+        return new PageImpl<>(pageContent, pageable, list.size());
+    }
     public List<SanPhamChiTiet> findByIdSP(int id) {
         List<SanPhamChiTiet> kq = new ArrayList<>();
         for(SanPhamChiTiet s : list) {

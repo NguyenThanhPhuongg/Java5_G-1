@@ -1,9 +1,14 @@
 package org.example.demobuoi1.controllers;
 
 import jakarta.validation.Valid;
+import org.example.demobuoi1.entity.MauSac;
+import org.example.demobuoi1.entity.NhanVien;
 import org.example.demobuoi1.entity.SanPham;
 import org.example.demobuoi1.repositories.asm1.SanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +25,14 @@ public class SanPhamController {
     @Autowired
     private SanPhamRepository spRepo;
     @GetMapping("index")
-    public String listSanPham(Model model) {
-        List<SanPham> list = spRepo.findAll();
-        model.addAttribute("listSanPham",list);
+    public String listSanPham(Model model, @RequestParam(value = "page", defaultValue = "0")int page) {
+        int pageSize = 2;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<SanPham> colorPage = spRepo.findAllPage(pageable);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", colorPage.getTotalPages());
+        model.addAttribute("totalItems", colorPage.getTotalElements());
+        model.addAttribute("listSanPham", colorPage.getContent());
         return "san_pham/index";
     }
 

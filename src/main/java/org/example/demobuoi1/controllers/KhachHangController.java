@@ -2,9 +2,13 @@ package org.example.demobuoi1.controllers;
 
 import jakarta.validation.Valid;
 import org.example.demobuoi1.entity.KhachHang;
+import org.example.demobuoi1.entity.MauSac;
 import org.example.demobuoi1.entity.SanPham;
 import org.example.demobuoi1.repositories.asm1.KhachHangRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,9 +25,14 @@ public class KhachHangController {
     @Autowired
     private KhachHangRepository khRepo;
     @GetMapping("index")
-    public String listKhachHang(Model model) {
-        List<KhachHang> list = khRepo.findAll();
-        model.addAttribute("listKhachHang", list);
+    public String listKhachHang(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+        int pageSize = 2;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<KhachHang> customer = khRepo.findAllPage(pageable);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", customer.getTotalPages());
+        model.addAttribute("totalItems", customer.getTotalElements());
+        model.addAttribute("listKhachHang", customer.getContent());
         return "khach_hang/index";
     }
     @GetMapping("create")

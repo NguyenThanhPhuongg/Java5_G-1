@@ -4,6 +4,9 @@ import jakarta.validation.Valid;
 import org.example.demobuoi1.entity.MauSac;
 import org.example.demobuoi1.repositories.asm1.MauSacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,10 +22,18 @@ import java.util.Map;
 public class MauSacController {
     @Autowired
     private MauSacRepository msRepo;
+    @Autowired
+    private MauSacRepository mauSacRepository;
+
     @GetMapping("index")
-    public String listMauSac(Model model){
-        List<MauSac> list = msRepo.findAll();
-        model.addAttribute("listMauSac",list);
+    public String listMauSac(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+        int pageSize = 2;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<MauSac> colorPage = mauSacRepository.findAllPage(pageable);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", colorPage.getTotalPages());
+        model.addAttribute("totalItems", colorPage.getTotalElements());
+        model.addAttribute("listMauSac", colorPage.getContent());
         return "mau_sac/index";
     }
 

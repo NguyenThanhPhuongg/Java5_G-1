@@ -2,8 +2,12 @@ package org.example.demobuoi1.controllers;
 
 import jakarta.validation.Valid;
 import org.example.demobuoi1.entity.KichThuoc;
+import org.example.demobuoi1.entity.MauSac;
 import org.example.demobuoi1.repositories.asm1.KichThuocRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,9 +25,14 @@ public class KichThuocController {
     @Autowired
     private KichThuocRepository ktRepo;
     @GetMapping("index")
-    public String listKichThuoc(Model model) {
-        List<KichThuoc> list = ktRepo.findAll();
-        model.addAttribute("listKichThuoc", list);
+    public String listKichThuoc(Model model, @RequestParam(value = "page", defaultValue = "0")int page) {
+        int pageSize = 2;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<KichThuoc> colorPage = ktRepo.findAllPage(pageable);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", colorPage.getTotalPages());
+        model.addAttribute("totalItems", colorPage.getTotalElements());
+        model.addAttribute("listKichThuoc", colorPage.getContent());
         return "kich_thuoc/index";
     }
     @GetMapping("create")

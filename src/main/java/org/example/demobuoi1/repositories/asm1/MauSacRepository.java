@@ -1,7 +1,9 @@
 package org.example.demobuoi1.repositories.asm1;
 
 import org.example.demobuoi1.entity.MauSac;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -19,6 +21,14 @@ public class MauSacRepository {
     }
     public List<MauSac> findAll() {
         return list;
+    }
+    public Page<MauSac> findAllPage(Pageable pageable) {
+        int pageSize = pageable.getPageSize();
+        int pageNumber = pageable.getPageNumber();
+        int startIndex = pageNumber * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, list.size());
+        List<MauSac> pageContent = list.subList(startIndex, endIndex);
+        return new PageImpl<>(pageContent, pageable, list.size());
     }
     public void add(MauSac mauSac){
         mauSac.setId(list.size()+1);
