@@ -8,27 +8,30 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
-<head></head>
+<head>
+    <jsp:include page="../../views/hello.jsp"></jsp:include>
+</head>
 <body>
-<jsp:include page="../../views/hello.jsp"></jsp:include>
 <h1 class="text-center">Quản Lý Sản Phẩm Chi Tiết</h1>
 <div class="container">
-    <a href="/san-pham-chi-tiet/create">
-        <button class="btn btn-success">Them</button>
-    </a>
-    <form action="/san-pham-chi-tiet/index" method="get">
-        <div class="col-md-3 mt-5 d-flex justify-content-end">
-            <select name="idSP" class="form-select">
-                <c:forEach var="spct" items="${listSanPham}">
-                    <option value="${spct.id}" ${idSP != null && idSP == spct.id ? 'selected' : ''}>
-                            ${spct.ten}
-                    </option>
-                </c:forEach>
-            </select>
-            <button   type="submit" class="btn btn-primary mx-2 d-flex align-items-center"><span>Search</span></button>
-        </div>
-    </form>
-
+    <div class="d-flex justify-content-between align-items-center">
+        <a href="/san-pham-chi-tiet/create">
+            <button class="btn btn-success">Them</button>
+        </a>
+        <form action="/san-pham-chi-tiet/index" method="get">
+            <div class="mt-5 d-flex">
+                <select name="idSP" class="form-select" >
+                    <c:forEach var="spct" items="${listSanPham}">
+                        <option value="${spct.id}" ${idSP != null && idSP == spct.id ? 'selected' : ''}>
+                                ${spct.ten}
+                        </option>
+                    </c:forEach>
+                </select>
+                <button type="submit" class="btn btn-primary mx-2 d-flex align-items-center"><span>Search</span>
+                </button>
+            </div>
+        </form>
+    </div>
     <table class="table">
         <tr>
             <th>ID</th>

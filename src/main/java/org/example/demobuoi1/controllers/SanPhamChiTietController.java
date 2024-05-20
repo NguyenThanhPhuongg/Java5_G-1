@@ -1,6 +1,5 @@
 package org.example.demobuoi1.controllers;
 
-import jakarta.servlet.http.HttpSession;
 import org.example.demobuoi1.entity.KichThuoc;
 import org.example.demobuoi1.entity.MauSac;
 import org.example.demobuoi1.entity.SanPham;

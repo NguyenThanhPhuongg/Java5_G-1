@@ -8,7 +8,9 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-<head></head>
+<head>
+    <jsp:include page="../../views/hello.jsp"></jsp:include>
+</head>
 <body>
 <h1 class="text-center">Quản Lý Sản Phẩm</h1>
 <div class="container">

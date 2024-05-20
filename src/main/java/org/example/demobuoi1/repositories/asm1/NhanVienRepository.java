@@ -49,4 +49,13 @@ public class NhanVienRepository {
             }
         }
     }
+    public NhanVien findByUsername(String username) {
+        for (int i = 0; i < list.size(); i++) {
+            NhanVien nhanVien = list.get(i);
+            if (nhanVien.getTenDangNhap().equals(username)) {
+                return nhanVien;
+            }
+        }
+        return null;
+    }
 }

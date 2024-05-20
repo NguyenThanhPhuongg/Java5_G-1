@@ -8,7 +8,8 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
-<head></head>
+<head><jsp:include page="../../views/hello.jsp"></jsp:include>
+</head>
 <body>
 <h1 class="text-center">Quản Lý Sản Phẩm</h1>
 <div class="container">
@@ -16,30 +17,30 @@
         <div class="mb-3">
             <label class="form-label">Ten</label>
             <input type="text" class="form-control" name="ten" value="${data.ten}">
-            <%--            <c:if test="${not empty errors['ma']}">--%>
-            <%--                <small style="color: red">${errors['ma']}</small>--%>
-            <%--            </c:if>--%>
+            <c:if test="${not empty errors['ten']}">
+                <small style="color: red">${errors['ten']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">Ma NV</label>
             <input class="form-control" type="text" name="maNV" value="${data.maNV}">
-            <%--            <c:if test="${not empty errors['ten']}">--%>
-            <%--                <small style="color: red">${errors['ten']}</small>--%>
-            <%--            </c:if>--%>
+            <c:if test="${not empty errors['maNV']}">
+                <small style="color: red">${errors['maNV']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">Ten dang nhap</label>
             <input class="form-control" type="text" name="tenDangNhap" value="${data.tenDangNhap}">
-            <%--            <c:if test="${not empty errors['ten']}">--%>
-            <%--                <small style="color: red">${errors['ten']}</small>--%>
-            <%--            </c:if>--%>
+            <c:if test="${not empty errors['tenDangNhap']}">
+                <small style="color: red">${errors['tenDangNhap']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label class="form-label">Mat khau</label>
             <input class="form-control" type="text" name="matKhau" value="${data.matKhau}">
-            <%--            <c:if test="${not empty errors['ten']}">--%>
-            <%--                <small style="color: red">${errors['ten']}</small>--%>
-            <%--            </c:if>--%>
+            <c:if test="${not empty errors['matKhau']}">
+                <small style="color: red">${errors['matKhau']}</small>
+            </c:if>
         </div>
         <div class="mb-3">
             <label>Trang thai</label>

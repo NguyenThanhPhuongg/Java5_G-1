@@ -4,12 +4,15 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Component
 public class SanPham {
+
     private Integer id;
     @NotBlank(message = "Ma khong duoc de trong")
     private String ma;

@@ -12,10 +12,10 @@ public class MauSacRepository {
     List<MauSac> list;
     public MauSacRepository() {
         list = new ArrayList<MauSac>();
-        list.add(new MauSac(1,"MS01","Hong",1));
+        list.add(new MauSac(1,"MS01","Hồng",1));
         list.add(new MauSac(2,"MS02","Xanh",1));
-        list.add(new MauSac(3,"MS03","Den",0));
-        list.add(new MauSac(4,"MS04 ","Den",0));
+        list.add(new MauSac(3,"MS03","Trắng",0));
+        list.add(new MauSac(4,"MS04 ","Tím",0));
     }
     public List<MauSac> findAll() {
         return list;
