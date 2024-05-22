@@ -10,6 +10,8 @@
 </head>
 <body>
 <jsp:include page="../views/hello.jsp"></jsp:include>
+<jsp:include page="../views/product.jsp"></jsp:include>
+<jsp:include page="../views/footer.jsp"></jsp:include>
 
 </body>
 </html>

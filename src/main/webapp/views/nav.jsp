@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="/views/images/gau.png" width="35px" height="40px" style="margin-bottom: 5px"/>
+            <img src="/views/images/gau.png" width="35px" height="40px" style="margin-left: 50px"/>
             <%--                <span style="color:gray ">huh</span>--%>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

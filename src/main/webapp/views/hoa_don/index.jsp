@@ -5,42 +5,30 @@
 <html>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<head></head>
+<head>
+    <jsp:include page="../../views/hello.jsp"></jsp:include>
+</head>
 <body>
-<jsp:include page="../../views/hello.jsp"></jsp:include>
-<h1 class="text-center">Quản Lý Mau Sac</h1>
+<h1 class="text-center">Quản Lý Sản Phẩm</h1>
 <div class="container">
-    <a href="/mau-sac/create">
-        <button class="btn btn-success">Them</button>
-    </a>
-    <form action="/mau-sac/tim-kiem" method="post">
-        <input value="${valueSearch}" type="text" name="valueSearch" placeholder="Nhập từ khóa">
-        <select name="searchStatus">
-            <option <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong</option>
-            <option <c:if test="${searchStatus eq 0}">selected</c:if>  value="0">Ngưng hoat dong</option>
-        </select>
-        <button type="submit" class="btn btn-light">Tìm kiếm</button>
-    </form>
     <table class="table">
         <tr>
             <th>ID</th>
-            <th>Ma</th>
-            <th>Ten</th>
-            <th>TrangThai</th>
-            <th>Thao tac</th>
+            <th>Ten nhan vien</th>
+            <th>Ten khach hang</th>
+            <th>Ngay mua hang</th>
+            <th>Trang Thai</th>
         </tr>
         <tbody>
-        <c:forEach items="${listMauSac}" var="mauSac">
+        <c:forEach items="${listHoaDon}" var="hd">
             <tr>
-                <td>${mauSac.id}</td>
-                <td>${mauSac.ma}</td>
-                <td>${mauSac.ten}</td>
-                <td>${mauSac.trangThai == 0?"Ngung hoat dong":"Dang hoat dong"}</td>
+                <td>${hd.id}</td>
+                <td>${tenNhanVien[hd.idNV]}</td>
+                <td>${tenKhachHang[hd.idKH]}</td>
+                <td>${hd.ngayMuaHang}</td>
+                <td>${hd.trangThai == 0?"Ngung hoat dong":"Dang hoat dong"}</td>
                 <td>
-                    <a href="/mau-sac/delete/${ mauSac.id }">
-                        <button class="btn btn-danger">Xoa</button>
-                    </a>
-                    <a href="/mau-sac/edit/${ mauSac.id }">
+                    <a href="/san-pham/edit/${ sanPham.id }">
                         <button class="btn btn-warning">Sua</button>
                     </a>
                 </td>

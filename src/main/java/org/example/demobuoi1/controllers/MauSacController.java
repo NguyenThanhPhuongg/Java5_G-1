@@ -1,6 +1,7 @@
 package org.example.demobuoi1.controllers;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.example.demobuoi1.entity.MauSac;
 import org.example.demobuoi1.repositories.asm1.MauSacRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@Slf4j
 @RequestMapping("mau-sac")
 public class MauSacController {
     @Autowired
@@ -26,7 +30,7 @@ public class MauSacController {
     private MauSacRepository mauSacRepository;
 
     @GetMapping("index")
-    public String listMauSac(Model model, @RequestParam(value = "page", defaultValue = "0") int page){
+    public String listMauSac(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         int pageSize = 2;
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<MauSac> colorPage = mauSacRepository.findAllPage(pageable);
@@ -38,14 +42,15 @@ public class MauSacController {
     }
 
     @GetMapping("create")
-    public String create(@ModelAttribute("data") MauSac mauSac){
+    public String create(@ModelAttribute("data") MauSac mauSac) {
         return "mau_sac/create";
     }
+
     @PostMapping("store")
-    public String store(Model model, @Valid  MauSac mauSac, BindingResult validate){
-        if(validate.hasErrors()){
-            Map<String,String> errors = new HashMap<>();
-            for(FieldError e : validate.getFieldErrors()) {
+    public String store(Model model, @Valid MauSac mauSac, BindingResult validate) {
+        if (validate.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError e : validate.getFieldErrors()) {
                 errors.put(e.getField(), e.getDefaultMessage());
             }
             model.addAttribute("data", mauSac);
@@ -55,22 +60,25 @@ public class MauSacController {
         this.msRepo.add(mauSac);
         return "redirect:/mau-sac/index";
     }
+
     @GetMapping("delete/{id}")
-    public String delete(@PathVariable("id") Integer id){
+    public String delete(@PathVariable("id") Integer id) {
         this.msRepo.deleteById(id);
         return "redirect:/mau-sac/index";
     }
+
     @GetMapping("edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model, @ModelAttribute("data") MauSac ms){
+    public String edit(@PathVariable("id") Integer id, Model model, @ModelAttribute("data") MauSac ms) {
         MauSac mauSac = this.msRepo.findById(id);
-        model.addAttribute("data",mauSac);
+        model.addAttribute("data", mauSac);
         return "mau_sac/edit";
     }
+
     @PostMapping("update/{id}")
-    public String update(Model model, @Valid MauSac mauSac, BindingResult validate){
-        if(validate.hasErrors()){
-            Map<String,String> errors = new HashMap<>();
-            for(FieldError e : validate.getFieldErrors()) {
+    public String update(Model model, @Valid MauSac mauSac, BindingResult validate) {
+        if (validate.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError e : validate.getFieldErrors()) {
                 errors.put(e.getField(), e.getDefaultMessage());
             }
             model.addAttribute("data", mauSac);
@@ -79,6 +87,16 @@ public class MauSacController {
         }
         this.msRepo.update(mauSac);
         return "redirect:/mau-sac/index";
+    }
+
+    @PostMapping("/tim-kiem")
+    public String timKiem(Model model, @RequestParam(required = false) String valueSearch, @RequestParam(required = false) Integer searchStatus) {
+        List<MauSac> list= msRepo.findByMaVaStatus(valueSearch, searchStatus);
+        model.addAttribute("listMauSac", list);
+        model.addAttribute("searchStatus", searchStatus);
+        model.addAttribute("valueSearch", valueSearch);
+        return "mau_sac/index";
+
     }
 }
 

@@ -11,6 +11,6 @@
 <head>
     <jsp:include page="../views/nav.jsp"></jsp:include>
     <jsp:include page="../views/product.jsp"></jsp:include>
-
+    <jsp:include page="../views/footer.jsp"></jsp:include>
 </head>
 </html>
