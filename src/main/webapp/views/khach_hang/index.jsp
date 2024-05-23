@@ -10,9 +10,26 @@
 <jsp:include page="../../views/hello.jsp"></jsp:include>
 <h1 class="text-center">Quản Lý Khách hàng</h1>
 <div class="container">
-    <a href="/khach-hang/create">
-        <button class="btn btn-success">Them</button>
-    </a>
+    <div class="d-flex justify-content-between align-items-center">
+        <a href="/khach-hang/create">
+            <button class="btn btn-success">Them</button>
+        </a>
+        <form action="/khach-hang/tim-kiem" method="post">
+            <div class="mt-5 d-flex">
+                <input value="${valueSearch}" class="form-control mx-2" type="text" name="valueSearch" placeholder="Nhập từ khóa">
+                <select name="searchStatus" class="form-select">
+                    <option
+                            <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong
+                    </option>
+                    <option
+                            <c:if test="${searchStatus eq 0}">selected</c:if> value="0">Ngưng hoat dong
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-primary mx-2 d-flex align-items-center">Search</button>
+            </div>
+
+        </form>
+    </div>
     <table class="table">
         <tr>
             <th>ID</th>

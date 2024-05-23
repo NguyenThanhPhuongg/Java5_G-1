@@ -24,6 +24,9 @@ import java.util.Map;
 public class KhachHangController {
     @Autowired
     private KhachHangRepository khRepo;
+    @Autowired
+    private KhachHangRepository khachHangRepository;
+
     @GetMapping("index")
     public String listKhachHang(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         int pageSize = 2;
@@ -41,6 +44,9 @@ public class KhachHangController {
     }
     @PostMapping("store")
     public String store(Model model, @Valid KhachHang khachHang, BindingResult validate){
+        if(khachHangRepository.exitByMa(khachHang.getMaKH())){
+            validate.rejectValue("ma" , "ma" , "Da Ton Tai Ma Nay");
+        }
         if(validate.hasErrors()){
             Map<String,String> errors = new HashMap<>();
             for (FieldError e : validate.getFieldErrors()) {
@@ -77,5 +83,14 @@ public class KhachHangController {
         }
         khRepo.update(khachHang);
         return "redirect:/khach-hang/index";
+    }
+    @PostMapping("/tim-kiem")
+    public String timKiem(Model model, @RequestParam(required = false) String valueSearch, @RequestParam(required = false) Integer searchStatus) {
+        List<KhachHang> list= khRepo.findByAll(valueSearch, searchStatus);
+        model.addAttribute("listKhachHang", list);
+        model.addAttribute("searchStatus", searchStatus);
+        model.addAttribute("valueSearch", valueSearch);
+        return "khach_hang/index";
+
     }
 }

@@ -15,9 +15,9 @@ public class NhanVienRepository {
     List<NhanVien> list;
     public NhanVienRepository() {
         list = new ArrayList<>();
-        list.add(new NhanVien(1, "Nguyễn Văn A","NV01","A","12345",1));
-        list.add(new NhanVien(2, "Nguyễn Văn B","NV02","B","12345",0));
-        list.add(new NhanVien(3, "Nguyễn Văn C","NV03","C","12345",1));
+        list.add(new NhanVien(1, "Nguyễn Văn A","NV01","A","12345",1,"admin"));
+        list.add(new NhanVien(2, "Nguyễn Văn B","NV02","B","12345",0,"staff"));
+        list.add(new NhanVien(3, "Nguyễn Văn C","NV03","C","12345",1,"admin"));
     }
     public List<NhanVien> findAll() {
         return list;
@@ -69,5 +69,32 @@ public class NhanVienRepository {
             }
         }
         return null;
+    }
+    public  boolean exitByMa(String ma){
+        return list.stream().anyMatch(sp -> sp.getMaNV().equals(ma));
+    }
+    public List<NhanVien> findByAll(String valueSearch, Integer status) {
+        List<NhanVien> listNhanVien = new ArrayList<>();
+        if (list == null) {
+            return listNhanVien;
+        }
+
+        boolean hasValueSearch = valueSearch != null && !valueSearch.isEmpty();
+        boolean hasStatus = status != null;
+
+        for (NhanVien nhanVien : list) {
+            boolean maMatches = hasValueSearch && valueSearch.equals(nhanVien.getMaNV());
+            boolean tenMatches = hasValueSearch && valueSearch.equals(nhanVien.getTen());
+            boolean statusMatches = hasStatus && status.equals(nhanVien.getTrangThai());
+
+            if ((hasValueSearch && (maMatches || tenMatches)) || (hasStatus && statusMatches)) {
+                if ((hasValueSearch && !(maMatches || tenMatches)) || (hasStatus && !statusMatches)) {
+                    continue;
+                }
+                listNhanVien.add(nhanVien);
+            }
+        }
+
+        return listNhanVien;
     }
 }

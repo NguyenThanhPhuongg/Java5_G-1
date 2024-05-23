@@ -17,7 +17,7 @@
     <form action="/san-pham-chi-tiet/update/${data.id}" method="post">
         <div class="mb-3">
             <label class="form-label">Ma SPCT</label>
-            <input type="text" class="form-control" name="maSPCT" value="${data.maSPCT}">
+            <input type="text" class="form-control" name="maSPCT" value="${data.maSPCT}" disabled>
             <%--            <c:if test="${not empty errors['ma']}">--%>
             <%--                <small style="color: red">${errors['ma']}</small>--%>
             <%--            </c:if>--%>

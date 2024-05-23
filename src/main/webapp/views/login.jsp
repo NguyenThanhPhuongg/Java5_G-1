@@ -15,7 +15,7 @@
             <div class="container">
                 <div class="row gx-lg-5 align-items-center">
                     <div class="col-lg-6 mb-5 mb-lg-0">
-                        <img src="./views/images/gau.png" width="400px" height="550px">
+                        <img src="/views/images/gau.png" width="400px" height="550px">
                     </div>
                     <div class="col-lg-6 mb-5 mb-lg-0">
                         <div class="card">

@@ -26,8 +26,13 @@
                             <li><a class="dropdown-item" href="/san-pham-chi-tiet/index">Quan ly san pham chi tiet</a></li>
                             <li><a class="dropdown-item" href="/kich-thuoc/index">Quan ly kich thuoc</a></li>
                             <li><a class="dropdown-item" href="/nhan-vien/index">Quan ly nhan vien</a></li>
+                            <%
+                                String quyen = (String) session.getAttribute("quyen");
+                                if ("admin".equals(quyen)) {
+                            %>
                             <li><a class="dropdown-item" href="/hoa-don/index">Quan ly hoa don</a></li>
                             <li><a class="dropdown-item" href="/hoa-don-chi-tiet/index">Quan ly hoa don chi tiet</a></li>
+                            <% } %>
                         </ul>
                     </li>
                 </ul>
@@ -36,7 +41,7 @@
             <div class="col-4 d-flex justify-content-end align-items-center" style="margin-right: 100px">
 
                 <div class="row">
-                    <div class="col-8 mt-2"  style="font-size: 17px" id="userNameContainer" ><span>Xin chao, ${userName}</span></div>
+                    <div class="col-8 mt-2"  style="font-size: 17px" id="userNameContainer" ><span>${sessionScope.quyen}, ${userName}</span></div>
                     <div  class=" col-4 text-center">
                         <a href="/logout"  id="signupLink">
                             <button class="btn" style="background-color: pink" onclick="if(!(confirm('Ban co muon dang xuat khong?'))) return false">LogOut</button>

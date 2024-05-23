@@ -23,6 +23,7 @@ public class LoginController {
         if(nhanVien != null){
             if(nhanVien.getMatKhau().equals(nhanVienRequest.getPassword())){
                 session.setAttribute("userName" , nhanVien.getTen());
+                session.setAttribute("quyen" , nhanVien.getQuyen());
                 model.addAttribute("message" , "Login successful");
 
                 return "redirect:/trang-chu";
@@ -34,6 +35,7 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("userName");
+        session.removeAttribute("quyen");
         return "redirect:/login";
     }
 

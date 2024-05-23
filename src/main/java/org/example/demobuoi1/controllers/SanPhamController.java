@@ -24,6 +24,9 @@ import java.util.Map;
 public class SanPhamController {
     @Autowired
     private SanPhamRepository spRepo;
+    @Autowired
+    private SanPhamRepository sanPhamRepository;
+
     @GetMapping("index")
     public String listSanPham(Model model, @RequestParam(value = "page", defaultValue = "0")int page) {
         int pageSize = 2;
@@ -42,6 +45,9 @@ public class SanPhamController {
     }
     @PostMapping("store")
     public String store(Model model, @Valid SanPham sanPham, BindingResult validate) {
+        if(sanPhamRepository.exitByMa(sanPham.getMa())){
+            validate.rejectValue("ma" , "ma" , "Da Ton Tai Ma Nay");
+        }
         //co loi tra ve true k co loi tra ve false
         if(validate.hasErrors()){
             Map<String,String> errors = new HashMap<>();

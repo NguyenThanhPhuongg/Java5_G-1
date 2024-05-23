@@ -48,6 +48,9 @@ public class MauSacController {
 
     @PostMapping("store")
     public String store(Model model, @Valid MauSac mauSac, BindingResult validate) {
+        if(mauSacRepository.exitByMa(mauSac.getMa())){
+            validate.rejectValue("ma" , "ma" , "Da Ton Tai Ma Nay");
+        }
         if (validate.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError e : validate.getFieldErrors()) {

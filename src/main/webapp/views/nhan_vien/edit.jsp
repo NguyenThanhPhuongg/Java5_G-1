@@ -15,17 +15,17 @@
 <div class="container">
     <form action="/nhan-vien/update/${data.id}" method="post">
         <div class="mb-3">
+            <label class="form-label">Ma NV</label>
+            <input class="form-control" type="text" name="maNV" value="${data.maNV}" disabled>
+            <c:if test="${not empty errors['maNV']}">
+                <small style="color: red">${errors['maNV']}</small>
+            </c:if>
+        </div>
+        <div class="mb-3">
             <label class="form-label">Ten</label>
             <input type="text" class="form-control" name="ten" value="${data.ten}">
             <c:if test="${not empty errors['ten']}">
                 <small style="color: red">${errors['ten']}</small>
-            </c:if>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Ma NV</label>
-            <input class="form-control" type="text" name="maNV" value="${data.maNV}">
-            <c:if test="${not empty errors['maNV']}">
-                <small style="color: red">${errors['maNV']}</small>
             </c:if>
         </div>
         <div class="mb-3">

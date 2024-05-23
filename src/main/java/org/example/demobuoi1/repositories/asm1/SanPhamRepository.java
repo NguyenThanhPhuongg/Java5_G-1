@@ -65,4 +65,7 @@ public class SanPhamRepository {
             }
         }
     }
+    public  boolean exitByMa(String ma){
+        return list.stream().anyMatch(sp -> sp.getMa().equals(ma));
+    }
 }

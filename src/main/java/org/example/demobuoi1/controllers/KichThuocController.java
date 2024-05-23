@@ -24,6 +24,9 @@ import java.util.Map;
 public class KichThuocController {
     @Autowired
     private KichThuocRepository ktRepo;
+    @Autowired
+    private KichThuocRepository kichThuocRepository;
+
     @GetMapping("index")
     public String listKichThuoc(Model model, @RequestParam(value = "page", defaultValue = "0")int page) {
         int pageSize = 2;
@@ -41,6 +44,9 @@ public class KichThuocController {
     }
     @PostMapping("store")
     public String store(Model model, @Valid KichThuoc kichThuoc, BindingResult validate){
+        if(kichThuocRepository.exitByMa(kichThuoc.getMa())){
+            validate.rejectValue("ma" , "ma" , "Da Ton Tai Ma Nay");
+        }
         if(validate.hasErrors()){
             Map<String,String> errors = new HashMap<>();
             for(FieldError e : validate.getFieldErrors()) {
@@ -77,5 +83,14 @@ public class KichThuocController {
         }
         ktRepo.update(kichThuoc);
         return "redirect:/kich-thuoc/index";
+    }
+    @PostMapping("/tim-kiem")
+    public String timKiem(Model model, @RequestParam(required = false) String valueSearch, @RequestParam(required = false) Integer searchStatus) {
+        List<KichThuoc> list= ktRepo.findByAll(valueSearch, searchStatus);
+        model.addAttribute("listKichThuoc", list);
+        model.addAttribute("searchStatus", searchStatus);
+        model.addAttribute("valueSearch", valueSearch);
+        return "kich_thuoc/index";
+
     }
 }

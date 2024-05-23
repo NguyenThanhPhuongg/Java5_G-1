@@ -23,4 +23,5 @@ public class NhanVien {
     @Size(min = 5 , max = 8 , message = "mat khau phai lon hon 5 va nho hon 8 ki tu")
     private String matKhau;
     private int trangThai;
+    private String quyen;
 }

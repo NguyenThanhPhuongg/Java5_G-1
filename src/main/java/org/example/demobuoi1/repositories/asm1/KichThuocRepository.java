@@ -62,5 +62,31 @@ public class KichThuocRepository {
             }
         }
     }
+    public  boolean exitByMa(String ma){
+        return list.stream().anyMatch(sp -> sp.getMa().equals(ma));
+    }
+    public List<KichThuoc> findByAll(String valueSearch, Integer status) {
+        List<KichThuoc> listKichThuoc = new ArrayList<>();
+        if (list == null) {
+            return listKichThuoc;
+        }
 
+        boolean hasValueSearch = valueSearch != null && !valueSearch.isEmpty();
+        boolean hasStatus = status != null;
+
+        for (KichThuoc kichThuoc : list) {
+            boolean maMatches = hasValueSearch && valueSearch.equals(kichThuoc.getMa());
+            boolean tenMatches = hasValueSearch && valueSearch.equals(kichThuoc.getTen());
+            boolean statusMatches = hasStatus && status.equals(kichThuoc.getTrangThai());
+
+            if ((hasValueSearch && (maMatches || tenMatches)) || (hasStatus && statusMatches)) {
+                if ((hasValueSearch && !(maMatches || tenMatches)) || (hasStatus && !statusMatches)) {
+                    continue;
+                }
+                listKichThuoc.add(kichThuoc);
+            }
+        }
+
+        return listKichThuoc;
+    }
 }

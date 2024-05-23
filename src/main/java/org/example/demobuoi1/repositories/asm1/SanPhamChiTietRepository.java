@@ -71,4 +71,7 @@ public class SanPhamChiTietRepository {
             }
         }
     }
+    public  boolean exitByMa(String ma){
+        return list.stream().anyMatch(sp -> sp.getMaSPCT().equals(ma));
+    }
 }

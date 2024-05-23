@@ -64,4 +64,32 @@ public class KhachHangRepository {
             }
         }
     }
+    public  boolean exitByMa(String ma){
+        return list.stream().anyMatch(sp -> sp.getMaKH().equals(ma));
+    }
+    public List<KhachHang> findByAll(String valueSearch, Integer status) {
+        List<KhachHang> listKhachHang = new ArrayList<>();
+        if (list == null) {
+            return listKhachHang;
+        }
+
+        boolean hasValueSearch = valueSearch != null && !valueSearch.isEmpty();
+        boolean hasStatus = status != null;
+
+        for (KhachHang khachHang : list) {
+            boolean maMatches = hasValueSearch && valueSearch.equals(khachHang.getMaKH());
+            boolean tenMatches = hasValueSearch && valueSearch.equals(khachHang.getTen());
+            boolean sdtMatches = hasValueSearch && valueSearch.equals(khachHang.getSdt());
+            boolean statusMatches = hasStatus && status.equals(khachHang.getTrangThai());
+
+            if ((hasValueSearch && (maMatches || tenMatches || sdtMatches)) || (hasStatus && statusMatches)) {
+                if ((hasValueSearch && !(maMatches || tenMatches || sdtMatches)) || (hasStatus && !statusMatches)) {
+                    continue;
+                }
+                listKhachHang.add(khachHang);
+            }
+        }
+
+        return listKhachHang;
+    }
 }

@@ -12,6 +12,13 @@
 <div class="container">
     <form action="/khach-hang/update/${data.id}" method="post">
         <div class="mb-3">
+            <label class="form-label">Ma KH</label>
+            <input type="text" class="form-control" name="maKH" value="${data.maKH}" disabled>
+            <c:if test="${not empty errors['maKH']}">
+                <small style="color: red">${errors['maKH']}</small>
+            </c:if>
+        </div>
+        <div class="mb-3">
             <label class="form-label">Ten</label>
             <input class="form-control" type="text" name="ten" value="${data.ten}">
             <c:if test="${not empty errors['ten']}">
@@ -25,13 +32,7 @@
                 <small style="color: red">${errors['sdt']}</small>
             </c:if>
         </div>
-        <div class="mb-3">
-            <label class="form-label">Ma KH</label>
-            <input type="text" class="form-control" name="maKH" value="${data.maKH}">
-            <c:if test="${not empty errors['maKH']}">
-                <small style="color: red">${errors['maKH']}</small>
-            </c:if>
-        </div>
+
         <div class="mb-3">
             <label>Trang thai</label>
             <select class="form-select" name="trangThai">

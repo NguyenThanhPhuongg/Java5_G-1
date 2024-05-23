@@ -14,7 +14,7 @@
     <form action="/kich-thuoc/update/${data.id}" method="post">
         <div class="mb-3">
             <label class="form-label">Ma</label>
-            <input type="text" class="form-control" name="ma" value="${data.ma}">
+            <input type="text" class="form-control" name="ma" value="${data.ma}" disabled>
             <c:if test="${not empty errors['ma']}">
                 <small style="color: red">${errors['ma']}</small>
             </c:if>

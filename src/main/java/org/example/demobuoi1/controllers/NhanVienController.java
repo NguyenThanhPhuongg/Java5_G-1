@@ -23,6 +23,9 @@ import java.util.Map;
 public class NhanVienController {
     @Autowired
     private NhanVienRepository nvRepo;
+    @Autowired
+    private NhanVienRepository nhanVienRepository;
+
     @GetMapping("index")
     public String listNhanVien(Model model, @RequestParam(value = "page", defaultValue = "0")int page) {
         int pageSize = 2;
@@ -40,6 +43,9 @@ public class NhanVienController {
     }
     @PostMapping("store")
     public String store(Model model, @Valid NhanVien nhanVien, BindingResult validate){
+        if(nhanVienRepository.exitByMa(nhanVien.getMaNV())){
+            validate.rejectValue("ma" , "ma" , "Da Ton Tai Ma Nay");
+        }
         if(validate.hasErrors()){
             Map<String,String> errors = new HashMap<>();
             for(FieldError e : validate.getFieldErrors()) {
@@ -76,5 +82,14 @@ public class NhanVienController {
         }
         nvRepo.update(nhanVien);
         return "redirect:/nhan-vien/index";
+    }
+    @PostMapping("/tim-kiem")
+    public String timKiem(Model model, @RequestParam(required = false) String valueSearch, @RequestParam(required = false) Integer searchStatus) {
+        List<NhanVien> list= nvRepo.findByAll(valueSearch, searchStatus);
+        model.addAttribute("listNhanVien", list);
+        model.addAttribute("searchStatus", searchStatus);
+        model.addAttribute("valueSearch", valueSearch);
+        return "nhan_vien/index";
+
     }
 }

@@ -10,17 +10,26 @@
 <jsp:include page="../../views/hello.jsp"></jsp:include>
 <h1 class="text-center">Quản Lý Mau Sac</h1>
 <div class="container">
-    <a href="/mau-sac/create">
-        <button class="btn btn-success">Them</button>
-    </a>
-    <form action="/mau-sac/tim-kiem" method="post">
-        <input value="${valueSearch}" type="text" name="valueSearch" placeholder="Nhập từ khóa">
-        <select name="searchStatus">
-            <option <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong</option>
-            <option <c:if test="${searchStatus eq 0}">selected</c:if>  value="0">Ngưng hoat dong</option>
-        </select>
-        <button type="submit" class="btn btn-light">Tìm kiếm</button>
-    </form>
+    <div class="d-flex justify-content-between align-items-center">
+        <a href="/mau-sac/create">
+            <button class="btn btn-success">Them</button>
+        </a>
+        <form action="/mau-sac/tim-kiem" method="post">
+            <div class="mt-5 d-flex">
+                <input value="${valueSearch}" class="form-control mx-2" type="text" name="valueSearch" placeholder="Nhập từ khóa">
+                <select name="searchStatus" class="form-select">
+                    <option
+                            <c:if test="${searchStatus eq 1}">selected</c:if> value="1">Dang hoat dong
+                    </option>
+                    <option
+                            <c:if test="${searchStatus eq 0}">selected</c:if> value="0">Ngưng hoat dong
+                    </option>
+                </select>
+                <button type="submit" class="btn btn-primary mx-2 d-flex align-items-center">Search</button>
+            </div>
+
+        </form>
+    </div>
     <table class="table">
         <tr>
             <th>ID</th>

@@ -39,6 +39,7 @@ public class MauSacRepository {
         list.add(mauSac);
     }
 
+
     public void deleteById(int id) {
         for (int i = 0; i < list.size(); i++) {
             MauSac mauSac = list.get(i);
@@ -67,6 +68,10 @@ public class MauSacRepository {
                 break;
             }
         }
+    }
+
+    public  boolean exitByMa(String ma){
+        return list.stream().anyMatch(sp -> sp.getMa().equals(ma));
     }
 
     public List<MauSac> findByMaVaStatus(String valueSearch, Integer status) {
